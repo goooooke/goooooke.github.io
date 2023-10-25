@@ -4,7 +4,7 @@
 body {
     font-family: 'IBM Plex Sans KR', sans-serif;
     margin: 0;
-    background-color: #f4f4f4;
+    background-color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -20,7 +20,7 @@ a {
     padding: 10px 0;
     padding-left: 15px;  /* 추가: 좌측 패딩을 추가하여 텍스트를 약간 오른쪽으로 이동 */
     text-align: left;  /* 추가: 텍스트를 좌측으로 정렬 */
-    background-color: #f4f4f4;
+    background-color: #ffffff;
     position: fixed;
     top: 0;
     z-index: 1000;
@@ -61,9 +61,11 @@ a {
 }
 
 #site-logo {
-    max-width: 150px;
     height: auto;
+    width: 50%;
 }
+
+
 
 .autocomplete {
     position: relative;
