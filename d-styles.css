@@ -1,0 +1,256 @@
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;500&display=swap');
+
+/* 검색페이지 */
+
+.autocomplete {
+    position: relative;
+    width: 300px;
+}
+
+#search {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+#autocomplete-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    border: 1px solid #ccc;
+    width: 100%;
+    z-index: 1;
+    display: none;
+}
+
+#autocomplete-results div {
+    padding: 10px;
+    cursor: pointer;
+}
+
+#autocomplete-results div:hover {
+    background-color: #e6e6e6;
+}
+
+
+
+/* 상단 헤더 스타일 */
+#header {
+    text-align: left;
+    padding: 10px;
+    display: flex;
+    width: 70%;  
+    margin: 0 auto;
+    margin-bottom: 20px;   
+}
+
+#header nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#header nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+#header nav ul li a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+}
+
+
+/* 결과페이지 */
+body {
+    font-family: 'IBM Plex Sans KR', sans-serif;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.member-card-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#background-wrapper {
+    background-color: #ffffff;
+    width: 100%;
+}
+
+/* 첫 번째 레이어: 사진, 의원이름 */
+
+#upper {
+    margin-bottom: 20px;
+}
+
+#upper, #center, #bottom {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;  
+    margin: 0 auto;   
+}
+
+#upper .column, #center .column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.circle-image-container {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: inline-block;
+    border: 1px solid rgba(128, 128, 128, 0.636);  /* 테두리 두께와 색상 설정 */
+}
+
+
+#member-image {
+    width: 100%;
+    vertical-align: top;
+}
+
+
+#member-name, #party-affiliation, #electoral-district {
+    text-align: right;
+}
+
+#party-affiliation, #electoral-district {
+    margin: 4px 0;
+    font-size: 14px;
+}
+
+
+#member-name {
+    font-size: 29px;
+}
+
+#member-name a {
+    text-decoration: none;
+    color: inherit;  /* 혹은 원하는 색상 */
+}
+
+#party-affiliation,
+#electoral-district {
+    margin-bottom: 0px; /* 아래쪽 마진을 5px로 설정 */
+}
+
+#party-affiliation,
+#electoral-district {
+    padding-bottom: 0px; /* 내부 아래쪽 패딩을 5px로 설정 */
+}
+
+
+/* 두 번째 레이어: 공약수, 완료, 이행률 */
+
+#center {
+    background-color: #ffffff;
+    border-bottom: 1px solid #33333359;
+    width: 65%;  /* 라인의 길이를 조절 */
+    margin: 0 auto;  /* 중앙 정렬 */
+    margin-top: 20px;
+}
+#center .column {
+    margin: 0 20px;
+    margin-bottom: 20px;
+}
+
+/* 기본적인 컬럼 스타일 */
+.column h2, .column p {
+    margin: 0;
+    padding: 0;
+}
+
+.small-percentage {
+    font-size: 0.7em; /* 원하는 크기로 설정 */
+    font-weight: lighter; /* 원하는 폰트 무게로 설정 */
+    vertical-align: bottom; /* 아래쪽에 위치하게 설정 */
+}
+
+
+
+/* 공약수, 완료, 이행률에 대한 텍스트 스타일 */
+#total-promises h2, #completed-promises h2, #budget-amount h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+#total-promises p, #completed-promises p, #budget-amount p {
+    font-size: 16px;
+    font-weight: normal;
+    color: #777;
+}
+
+#total-promises-value, #completed-promises-value, #budget-amount-value {
+    margin-bottom: 5px;
+}
+
+/* 세 번째 레이어: 공약 */
+#bottom {
+    background-color: #ffffff;
+    text-align: left; /* 추가 */
+    align-items: flex-start;  /* 이 부분을 추가 */
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+#bottom.comment-section {
+    width: 100%;
+    text-align: left;
+}
+
+#bottom.comment-section ul,
+#bottom.comment-section li {
+    width: 100%;
+    text-align: left;
+    margin: 0; /* 추가 */
+    padding: 0; /* 추가 */
+}
+
+.custom-list {
+    list-style-type: none;
+}
+
+/* 공약 리스트 아이템 간의 간격을 조절하기 위한 코드 */
+.custom-list li {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 10px;  /* 리스트 아이템 간의 수직 간격 추가 */
+    line-height: 1.5;  /* 줄간격 조절 */
+}
+
+
+/* 순번과 공약사이의 간격 조절 */
+.custom-list .index {
+    text-align: right;
+    flex: 1;
+    margin-right: 20px;  /* 순번과 공약사이의 수평 간격 추가 */
+}
+  
+/* 공약 내용 스타일 */
+.custom-list .description {
+    flex: 4;
+    text-align: left;
+    font-weight: 300;
+}
+
+/* 모바일 환경 대응 */
+@media screen and (max-width: 768px) {
+    #bottom {
+        margin-right: 40px; /* 원하는 우측 마진 값을 설정하세요 */
+    }
+}
+
