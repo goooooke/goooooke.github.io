@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <link rel="stylesheet" href="d-styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>            
+    <div class="member-card-container">
+        <!-- 상단 헤더 영역 추가 -->
+        <div id="header">
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="https">About</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div id="background-wrapper">
+            <!-- Upper Row -->
+            <div id="upper">
+                <div class="circle-image-container">
+                    <img id="member-image" alt="의원 이미지">
+                </div>            
+                <div class="column">
+                    <h1 id="member-name"></h1>
+                    <p id="party-affiliation"></p>
+                    <p id="electoral-district"></p>
+                </div>
+            </div>
+        
+            <!-- Middle Row -->
+            <div id="center">
+                <div class="column" id="total-promises">
+                    <h2 id="total-promises-value"></h2>
+                    <p>공약수</p>
+                </div>
+                <div class="column" id="completed-promises">
+                    <h2 id="completed-promises-value"></h2> 
+                    <p>완료</p>
+                </div>
+                <div class="column" id="budget-amount">
+                    <h2 id="budget-amount-value"></h2> 
+                    <p>이행률</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Row -->
+        <div id="bottom" class="comment-section">
+            <ul class="custom-list"></ul>
+        </div>
+    </div>
+    <script>
+        window.onload = async function() {
+            const params = new URLSearchParams(window.location.search);
+            const queryValue = params.get('query');
+        
+            try {
+                const response1 = await fetch('u_assembly_list.json');
+                const master = await response1.json();
+                
+                const filteredArray = master.filter(item => item["의원명"] === queryValue);
+    
+                // 데이터가 없는 경우
+                if (filteredArray.length === 0) {
+                    window.location.href = "/";
+                    return; // 404 페이지 나중에...
+                }
+    
+                const filteredData1 = filteredArray[0];
+    
+                const response2 = await fetch('detail_data.json');
+                const detail = await response2.json();
+                const filteredData2 = detail[queryValue]; // 키를 이용한 직접 접근
+    
+                // UI 업데이트
+                document.getElementById('member-name').textContent = filteredData1["의원명"];
+                document.getElementById('party-affiliation').textContent = filteredData1["소속정당"];
+                document.getElementById('electoral-district').textContent = filteredData1["지역구"];
+        
+                const memberNameElement = document.getElementById('member-name');
+                const linkUrl = "https://www.assembly.go.kr" + filteredData1["mLinkUrl"];
+                const anchorTag = document.createElement('a');
+                anchorTag.href = linkUrl;
+                anchorTag.textContent = filteredData1["의원명"];
+                
+                // member-name element의 내용을 비워준 후에 anchorTag를 삽입
+                memberNameElement.innerHTML = '';
+                memberNameElement.appendChild(anchorTag);
+                
+                // 이미지 URL 설정
+                document.getElementById('member-image').src = filteredData1["mImgUrl"];
+        
+                // 총 공약 수와 완료 값을 설정
+                document.getElementById('total-promises-value').textContent = filteredData1["총공약(수)"];
+                document.getElementById('completed-promises-value').textContent = filteredData1["완료"];
+        
+                // 이행률 계산
+                let totalPromises = Number(filteredData1["총공약(수)"]);
+                let completedPromises = Number(filteredData1["완료"]);
+                let fulfillmentRate;
+        
+                let bottomDiv = document.getElementById("bottom");
+                bottomDiv.innerHTML = '';  // 기존 데이터 초기화
+                let ul = document.createElement("ul");
+                ul.className = "custom-list";
+        
+                if (totalPromises !== 0) {
+                    fulfillmentRate = (completedPromises / totalPromises) * 100;
+        
+                    filteredData2.forEach(promise => {
+                        let li = document.createElement("li");
+                        let indexSpan = document.createElement("span");
+                        let descriptionSpan = document.createElement("span");
+        
+                        indexSpan.className = "index";
+                        descriptionSpan.className = "description";
+        
+                        indexSpan.textContent = `${promise["순번"]}.`;
+                        descriptionSpan.textContent = `${promise["공약명"]} (${promise["이행도"]})`;
+        
+                        li.appendChild(indexSpan);
+                        li.appendChild(descriptionSpan);
+                        ul.appendChild(li);
+                    });
+                } else {
+                    let li = document.createElement("li");
+                    let indexSpan = document.createElement("span");
+                    let descriptionSpan = document.createElement("span");
+    
+                    indexSpan.className = "index";
+                    descriptionSpan.className = "description";
+    
+                    descriptionSpan.textContent = '공약이행관련 데이터를 제출하지 않았습니다';
+    
+                    li.appendChild(indexSpan);
+                    li.appendChild(descriptionSpan);
+    
+                    ul.appendChild(li);
+                    
+                }
+                bottomDiv.appendChild(ul);
+    
+                if (fulfillmentRate !== undefined) {
+                    document.getElementById('budget-amount-value').innerHTML = `${fulfillmentRate.toFixed(1)}<span class="small-percentage">%</span>`;
+                } else {
+                    document.getElementById('budget-amount-value').textContent = "0";
+                }
+                
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+    </script>
+                      
+</body>
+</html>
