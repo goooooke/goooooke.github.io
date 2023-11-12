@@ -122,11 +122,11 @@ h1 {
 }
 
 
-#member-name, #party-affiliation, #electoral-district {
+#member-name, #party-affiliation, #electoral-district,#elected-count {
     text-align: right;
 }
 
-#party-affiliation, #electoral-district {
+#party-affiliation, #electoral-district,#elected-count {
     margin: 4px 0;
     font-size: 14px;
 }

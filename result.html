@@ -34,7 +34,7 @@
                 </div>            
                 <div class="column">
                     <h1 id="member-name"></h1>
-                    <p id="party-affiliation"></p>
+                    <p><span id="party-affiliation"></span> (<span id="elected-count"></span>)</p>
                     <p id="electoral-district"></p>
                 </div>
             </div>
@@ -88,6 +88,7 @@
                 document.getElementById('member-name').textContent = filteredData1["의원명"];
                 document.getElementById('party-affiliation').textContent = filteredData1["소속정당"];
                 document.getElementById('electoral-district').textContent = filteredData1["지역구"];
+                document.getElementById('elected-count').textContent = filteredData1["당선"]
         
                 const memberNameElement = document.getElementById('member-name');
                 const linkUrl = "https://www.assembly.go.kr" + filteredData1["mLinkUrl"];
